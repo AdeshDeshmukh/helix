@@ -1,0 +1,33 @@
+# Binaries
+helix
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Coverage
+*.out
+coverage.html
+
+# Dependencies
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test repos
+test-repos/
+*.helix/
+
+# Logs
+*.log
