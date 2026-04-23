@@ -13,10 +13,6 @@ var writeTreeCmd = &cobra.Command{
 	RunE:  runWriteTree,
 }
 
-func init() {
-	rootCmd.AddCommand(writeTreeCmd)
-}
-
 func runWriteTree(cmd *cobra.Command, args []string) error {
 	repoPath, err := findRepositoryRoot(".")
 	if err != nil {

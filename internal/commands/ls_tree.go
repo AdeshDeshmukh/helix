@@ -14,10 +14,6 @@ var lsTreeCmd = &cobra.Command{
 	RunE:  runLsTree,
 }
 
-func init() {
-	rootCmd.AddCommand(lsTreeCmd)
-}
-
 func runLsTree(cmd *cobra.Command, args []string) error {
 	treeHash := args[0]
 

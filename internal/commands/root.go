@@ -39,6 +39,12 @@ var versionCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(initCmd)
+	rootCmd.AddCommand(hashObjectCmd)
+	rootCmd.AddCommand(writeTreeCmd)
+	rootCmd.AddCommand(lsTreeCmd)
+	rootCmd.AddCommand(commitTreeCmd)
+	rootCmd.AddCommand(catFileCmd)
+	rootCmd.AddCommand(logCmd)
 }
 
 func Execute(v, c, d string) error {

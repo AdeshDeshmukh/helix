@@ -22,7 +22,6 @@ var hashObjectType string
 func init() {
 	hashObjectCmd.Flags().BoolVarP(&hashObjectWrite, "write", "w", false, "Write the object to database")
 	hashObjectCmd.Flags().StringVarP(&hashObjectType, "type", "t", "blob", "Specify the type of object")
-	rootCmd.AddCommand(hashObjectCmd)
 }
 
 func findRepositoryRoot(startPath string) (string, error) {
