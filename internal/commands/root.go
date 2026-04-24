@@ -39,6 +39,9 @@ var versionCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(initCmd)
+	rootCmd.AddCommand(addCmd)
+	rootCmd.AddCommand(statusCmd)
+	rootCmd.AddCommand(commitCmd)
 	rootCmd.AddCommand(hashObjectCmd)
 	rootCmd.AddCommand(writeTreeCmd)
 	rootCmd.AddCommand(lsTreeCmd)

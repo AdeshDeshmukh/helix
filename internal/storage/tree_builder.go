@@ -11,11 +11,40 @@ import (
 )
 
 type TreeBuilder struct {
-	db *Database
+	db      *Database
+	entries map[string]TreeBuilderEntry
+}
+
+type TreeBuilderEntry struct {
+	Path string
+	Hash string
+	Mode string
 }
 
 func NewTreeBuilder(db *Database) *TreeBuilder {
-	return &TreeBuilder{db: db}
+	return &TreeBuilder{
+		db:      db,
+		entries: make(map[string]TreeBuilderEntry),
+	}
+}
+
+func (tb *TreeBuilder) AddEntry(path, hash, mode string) {
+	tb.entries[path] = TreeBuilderEntry{
+		Path: path,
+		Hash: hash,
+		Mode: mode,
+	}
+}
+
+func (tb *TreeBuilder) BuildTree() (*objects.Tree, error) {
+	tree := objects.NewTree()
+
+	for _, entry := range tb.entries {
+		tree.AddEntry(entry.Mode, filepath.Base(entry.Path), entry.Hash, "blob")
+	}
+
+	tree.Format()
+	return tree, nil
 }
 
 func (tb *TreeBuilder) BuildTreeFromDirectory(dirPath string) (*objects.Tree, error) {
@@ -63,7 +92,7 @@ func (tb *TreeBuilder) BuildTreeFromDirectory(dirPath string) (*objects.Tree, er
 				return nil, fmt.Errorf("failed to get file info: %w", err)
 			}
 
-			mode := getFileModeFromInfo(info)
+			mode := GetFileMode(info)
 			tree.AddEntry(mode, entry.Name(), blob.Hash, "blob")
 		}
 	}
@@ -72,7 +101,7 @@ func (tb *TreeBuilder) BuildTreeFromDirectory(dirPath string) (*objects.Tree, er
 	return tree, nil
 }
 
-func getFileModeFromInfo(info fs.FileInfo) string {
+func GetFileMode(info fs.FileInfo) string {
 	mode := info.Mode()
 
 	if mode.IsDir() {
